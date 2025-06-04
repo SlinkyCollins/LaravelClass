@@ -76,6 +76,9 @@ Route::get('/dashboard/updatepfp/{id}', function($id){
 
 Route::post('/dashboard/updatepfp/{id}', [UserController::class, 'updatepfp']);
 
+Route::get('/dashboard/ecommerce/{id}', action: function(){
+    return view('ecommerce');
+});
 // Route::post('/register', function(Request $req){
 //     echo $req->full_name;
 //     // echo $_POST['full_name'];

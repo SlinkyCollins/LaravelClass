@@ -14,7 +14,12 @@
 </head>
 
 <body>
-    <a href="/user/{{ $user->id }}">Check my notes</a>
+    <div>
+        <a href="/user/{{ $user->id }}">Check my notes</a>
+    </div>
+    <div>
+        <a href="/dashboard/ecommerce/{{ $user->id }}">Go to e-commerce page</a>
+    </div>
     <div>Welcome to dashboard {{ $user->name }} </div>
     <div>Your email: {{ $user->email }} </div>
     <div>Your id: {{ $user->id }} </div>
