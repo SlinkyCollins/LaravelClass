@@ -33,21 +33,24 @@ class UserController extends Controller
     public function createUser(Request $req)
     {
         $validation = Validator::make($req->all(), [
-            'full_name' => 'required|max:20|min:5',
+            'fullname' => 'required|max:20|min:5',
             'email' => ['required', 'email', 'unique:users', 'lowercase'],
             'password' => [
                 'required',
                 'min:8',
                 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/'
             ],
-            'phone_number' => 'required',
         ], [
             'password' => 'Password must contain letters, numbers and special characters'
         ]);
 
         if ($validation->fails()) {
             // return $validation->errors();
-            return view('home')->with('errors', $validation->errors());
+            return json_encode([
+            'status' => '201',
+            'msg' => $validation->errors()
+        ]);
+            // return view('home')->with('errors', $validation->errors());
         }
 
         // return User::where('email', 'afolabiademola27@gmail.com')->first();
@@ -57,19 +60,26 @@ class UserController extends Controller
         $user = User::where('email', $req->email)->first();
 
         if ($user) {
-            return view('home')->with('message', 'User already exists bro')->with('status', false);
+             return json_encode([
+            'status' => '401',
+            'msg' => 'User already exists bro'
+            ]);
+            // return view('home')->with('message', 'User already exists bro')->with('status', false);
         }
 
         $save = User::create([
-            'name' => $req->full_name,
+            'name' => $req->fullname,
             'email' => $req->email,
             'password' => $req->password,
-            'phoneNumber' => $req->phone_number,
             // 'password' => Hash::make($req->password), Hash Password Manually
         ]);
 
         if ($save) {
-            return redirect('/login')->with('message', 'Details saved successfully');
+             return json_encode([
+            'status' => '200',
+            'msg' => 'Details saved successfully'
+            ]);
+            // return redirect('/login')->with('message', 'Details saved successfully');
         }
 
 
