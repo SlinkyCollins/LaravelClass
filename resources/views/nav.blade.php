@@ -45,10 +45,11 @@
 
       @yield('content')
 
+      @yield('landingpage')
+
       @yield('usersandnotes')
 
       @yield('allnotesanduser')
-
 
       @yield('edit-content')
 </body>

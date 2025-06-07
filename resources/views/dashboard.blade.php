@@ -18,6 +18,12 @@
         <a href="/user/{{ $user->id }}">Check my notes</a>
     </div>
     <div>
+        @if (session('productmessage'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('productmessage') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <a href="/dashboard/ecommerce/{{ $user->id }}">Go to e-commerce page</a>
     </div>
     <div>Welcome to dashboard {{ $user->name }} </div>
@@ -26,7 +32,8 @@
 
     <div class="m-3">
         @if ($user->profile_picture)
-            <img class="image rounded-circle" src="uploads/profile_pics/{{$user->profile_picture}}" alt="Profile Pic" style="width: 80px;height: 80px; padding: 10px; margin: 0px;">
+            <img class="image rounded-circle" src="uploads/profile_pics/{{ $user->profile_picture }}" alt="Profile Pic"
+                style="width: 80px;height: 80px; padding: 10px; margin: 0px;">
         @else
             <img src="" alt="Default Profile">
         @endif
@@ -39,16 +46,42 @@
         @endif
     </div>
 
-    <form action="/deleteuser" method="POST">
-        @csrf
+
+    <div>
         @if (session('message'))
             <div class="alert alert-success">
                 {{ session('message') }}
             </div>
         @endif
-        <input type="hidden" name="userId" value="{{ $user->id }}">
-        <input type="submit" name="DeleteAccount" value="Delete Account" class="btn btn-danger" />
-    </form>
+
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete
+            Account</button>
+    </div>
+
+    {{-- delete account modal --}}
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form action="/deleteuser" method="POST">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="deleteAccountModal">Delete Account</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <input type="hidden" name="userId" value="{{ $user->id }}">
+                        <p>Are you sure you want to delete your account?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">No, go back</button>
+                        <button type="submit" name="DeleteAccount" class="btn btn-danger" name="Logout"
+                            data-bs-dismiss="modal">Yes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
     <div>

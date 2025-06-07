@@ -79,11 +79,15 @@ Route::get('/dashboard/updatepfp/{id}', function($id){
 Route::post('/dashboard/updatepfp/{id}', [UserController::class, 'updatepfp']);
 
 Route::get('/dashboard/ecommerce/{id}', action: function($id){
-    $user = User::find($id);
-    return view('ecommerce', compact('user'));
+    return view('ecommerce', compact('id'));
 });
 
 Route::post('/dashboard/ecommerce/{id}', [ProductsController::class, 'createProduct']);
+
+Route::get('/dashboard/ecommerce/{id}/products', [ProductsController::class, 'viewMyProduct']);
+
+Route::get('shop', [ProductsController::class, 'allProducts']);
+
 // Route::post('/register', function(Request $req){
 //     echo $req->full_name;
 //     // echo $_POST['full_name'];
