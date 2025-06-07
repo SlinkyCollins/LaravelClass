@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\NotesController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -76,9 +78,12 @@ Route::get('/dashboard/updatepfp/{id}', function($id){
 
 Route::post('/dashboard/updatepfp/{id}', [UserController::class, 'updatepfp']);
 
-Route::get('/dashboard/ecommerce/{id}', action: function(){
-    return view('ecommerce');
+Route::get('/dashboard/ecommerce/{id}', action: function($id){
+    $user = User::find($id);
+    return view('ecommerce', compact('user'));
 });
+
+Route::post('/dashboard/ecommerce/{id}', [ProductsController::class, 'createProduct']);
 // Route::post('/register', function(Request $req){
 //     echo $req->full_name;
 //     // echo $_POST['full_name'];

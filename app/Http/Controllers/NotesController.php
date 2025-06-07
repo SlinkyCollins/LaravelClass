@@ -39,7 +39,7 @@ class NotesController extends Controller
                 return 'not saved';
             }
         } else {
-            return 'Not working';
+            return 'Please enter both a Title and description.';
         }
     }
 
