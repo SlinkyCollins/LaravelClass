@@ -13,6 +13,8 @@
                 <li style="list-style-type: none"><strong>Product Name:</strong> {{ $item->name }}</li>
                 <li style="list-style-type: none"><strong>Description:</strong> {{ $item->description }}</li>
                 <li style="list-style-type: none"><strong>Price:</strong> ₦{{ number_format($item->price, 2) }}</li>
+                <li style="list-style-type: none"><strong>Quantity:</strong> {{ $item->quantity }}</li>
+                <li style="list-style-type: none"><strong>Category:</strong> {{ $item->category }}</li>
                 <li style="list-style-type: none"><strong>Created At:</strong> {{ $item->created_at }}</li>
                 <li style="list-style-type: none"><strong>Updated At:</strong> {{ $item->updated_at }}</li>
                 <img src="/uploads/product_images/{{ $item->image }}" alt="Product Image" width="50" height="50">
